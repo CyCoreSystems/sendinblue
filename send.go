@@ -46,44 +46,44 @@ func InlineAttachment(name string, in io.Reader) (ret Attachment, err error) {
 // Message describes an email message which should be sent
 type Message struct {
 
-	// Sender is the entity which is sending the email message
-	Sender Address `json:"sender"`
+	// Sender is the entity which is sending the email message.  REQUIRED.
+	Sender *Address `json:"sender"`
 
 	// To is the list of primary recipients of the email
-	To []Address `json:"to"`
+	To []*Address `json:"to,omitempty"`
 
 	// Bcc (blind carbon copy) is the list of recipients of the email which should not be disclosed to other recipients
-	Bcc []Address `json:"bcc"`
+	Bcc []*Address `json:"bcc,omitempty"`
 
 	// Cc (carbon copy) is the list of secondary recipients of the email
-	Cc []Address `json:"cc"`
+	Cc []*Address `json:"cc,omitempty"`
 
 	// HTMLContent is the HTML-formatted content of the email
-	HTMLContent string `json:"htmlContent"`
+	HTMLContent string `json:"htmlContent,omitempty"`
 
 	// TextContent is the plain-text content of the email
-	TextContent string `json:"textContent"`
+	TextContent string `json:"textContent,omitempty"`
 
 	// Subject is the subject of the email
-	Subject string `json:"subject"`
+	Subject string `json:"subject,omitempty"`
 
 	// ReplyTo indicates that replies to this email should be sent to this address
-	ReplyTo Address `json:"replyTo"`
+	ReplyTo *Address `json:"replyTo,omitempty"`
 
 	// Attachments describe any attachments which should be added to this email
-	Attachments []Attachment `json:"attachment"` // documentation indicates attachment (singular) even though multiple attachments are allowed
+	Attachments []*Attachment `json:"attachment,omitempty"` // documentation indicates attachment (singular) even though multiple attachments are allowed
 
 	// Headers is the list of email headers which should be sent with the email message
-	Headers map[string]string `json:"headers"`
+	Headers map[string]string `json:"headers,omitempty"`
 
 	// TemplateID indicates that the content of the email address should be taken from the indicated template instead of directly-included content
-	TemplateID int64 `json:"templateId"`
+	TemplateID int64 `json:"templateId,omitempty"`
 
 	// Params is the list of parameters which should be used to populate the template
-	Params map[string]string `json:"params"`
+	Params map[string]string `json:"params,omitempty"`
 
 	// Tags are arbitrary labels which are applied to this email in order to facilitate organizational operations in SendInBlue
-	Tags []string `json:"tags"`
+	Tags []string `json:"tags,omitempty"`
 }
 
 // Send transmits the email message to SendInBlue
